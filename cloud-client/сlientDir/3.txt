@@ -1,0 +1,20 @@
+@Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        clientDir = Paths.get("cloud-client/сlientDir");
+
+        fName.setPrefWidth(300);
+        //fName.setCellValueFactory(new PropertyValueFactory<FileMsg, String>("fileName"));
+        fName.setCellValueFactory((Callback<TableColumn.CellDataFeatures<FileMsg, String>, ObservableValue<String>>) param -> param.getValue().getFileName());
+
+        fExt.setCellValueFactory(new PropertyValueFactory<FileMsg, String>("folder"));
+
+        fSize.setCellValueFactory(new PropertyValueFactory<FileMsg, String>("fileSize"));
+        fSize.setCellValueFactory((Callback<TableColumn.CellDataFeatures<FileMsg, String>, ObservableValue<String>>) param -> param.getValue().getFileSize());
+
+        fDate.setCellValueFactory(new PropertyValueFactory<FileMsg, String>("exchangeDate"));
+        fDate.setCellValueFactory((Callback<TableColumn.CellDataFeatures<FileMsg, String>, ObservableValue<String>>) param -> param.getValue().getExchangeDate());
+
+        clientTableView.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
+            currentFile = newValue.getFileName();
+        }));
